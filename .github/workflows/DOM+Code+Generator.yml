@@ -38,4 +38,10 @@ jobs:
 
       - name: Run Code Generator
         run: |
+          Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin"
+          Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Debug"
+          Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Release"
+
+      - name: Run Code Generator
+        run: |
           "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator" --file "./src/module.json"
