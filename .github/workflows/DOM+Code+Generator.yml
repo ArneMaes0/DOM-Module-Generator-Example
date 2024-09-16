@@ -40,7 +40,7 @@ jobs:
         run: |
           Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin"
           Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Debug"
-          Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Release"
+          Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0"
 
       - name: Run Code Generator
         run: |
