@@ -24,18 +24,18 @@ jobs:
           echo "ref type" ${{ github.ref_type }}
           echo "repository" ${{ github.repository }}
 
-      - name: Initialize Code Generator
+      - name: Clone Code Generator
         uses: actions/checkout@v4
         with:
           path: ./generator
           repository: ArneMaes0/Tool.DOM.Code.Generator
 
-      - name: Add Code Generator Tool
+      - name: Build Code Generator
         run: |
           dotnet restore "./generator/Tools.DOM.Code.Generator/Tools.DOM.Code.Generator.csproj"
           dotnet build "./generator/Tools.DOM.Code.Generator/Tools.DOM.Code.Generator.csproj"
           dotnet nuget add source "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0"
 
-      - name: Generate Code
+      - name: Run Code Generator
         run: |
           "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator" --file "./src/module.json"
