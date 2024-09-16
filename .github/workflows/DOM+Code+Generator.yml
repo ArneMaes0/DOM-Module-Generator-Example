@@ -1,0 +1,41 @@
+name: DOM Code Generator
+on:
+  push:
+    branches: [ main ]
+    tags:
+    - '[0-9]+.[0-9]+.[0-9]+'
+    - '[0-9]+.[0-9]+.[0-9]+-[0-9a-zA-Z]+'
+  workflow_dispatch: 
+jobs:
+  Generator:
+    name: Generator
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ./src
+          fetch-depth: 0
+
+      - name: Initialize
+        run: |
+          echo "workspace" ${{ github.workspace }}
+          echo "ref name" ${{ github.ref_name }}
+          echo "run number" ${{ github.run_number }}
+          echo "ref type" ${{ github.ref_type }}
+          echo "repository" ${{ github.repository }}
+
+      - name: Initialize Code Generator
+        uses: actions/checkout@v4
+        with:
+          path: ./generator
+          repository: ArneMaes0/Tool.DOM.Code.Generator
+
+      - name: Add Code Generator Tool
+        run: |
+          dotnet restore "./generator/DOM Code Generator/DOM Code Generator.csproj"
+          dotnet build "./generator/DOM Code Generator/DOM Code Generator.csproj"
+          dotnet nuget add source "./generator/DOM Code Generator/bin/Debug/net8.0"
+
+      - name: Generate Code
+        run: |
+          "Skyline.DataMiner.Tools.DOM.Code.Generator" --file "./src/module.json"
