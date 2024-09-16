@@ -38,4 +38,4 @@ jobs:
 
       - name: Generate Code
         run: |
-          "Skyline.DataMiner.Tools.DOM.Code.Generator" --file "./src/module.json"
+          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator" --file "./src/module.json"
