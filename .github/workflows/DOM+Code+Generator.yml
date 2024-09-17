@@ -47,6 +47,11 @@ jobs:
         run: |
           dotnet new classlib -n Skyline.DataMiner.DOM.ResourceManagement
 
+      - name: Rename class
+        shell: cmd
+        run: |
+          ren Skyline.DataMiner.DOM.ResourceManagement\Class1.cs DomHelpers.cs
+
       - name: Update .csproj
         shell: cmd
         run: |
@@ -78,12 +83,12 @@ jobs:
       - name: Generate Code
         shell: cmd
         run: |
-          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" > Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
+          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" > Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
 
-      - name: Rename class
+      - name: Logging
         shell: cmd
         run: |
-          ren Skyline.DataMiner.DOM.ResourceManagement\Class1.cs DomHelpers.cs
+          type Skyline.DataMiner.DOM.ResourceManagement\DomHelpers.cs
 
       - name: Build Nuget Package
         shell: cmd
