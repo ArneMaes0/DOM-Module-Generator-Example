@@ -46,6 +46,10 @@ jobs:
         shell: cmd
         run: |
           dotnet new classlib -n Skyline.DataMiner.DOM.ResourceManagement
+
+      - name: Update .csproj
+        shell: cmd
+        run: |
           (
           echo ^<Project Sdk="Microsoft.NET.Sdk"^>
           echo  ^<PropertyGroup^>
@@ -65,15 +69,16 @@ jobs:
           echo    ^<Description^>Contains helper classes to interact with the DOM instances.^</Description^>
           echo    ^<RepositoryType^>git^</RepositoryType^>
           echo  ^</PropertyGroup^>
-          echo 
           echo  ^<ItemGroup^>
           echo    ^<PackageReference Include="Skyline.DataMiner.Dev.Common" Version="10.3.9" /^>
           echo  ^</ItemGroup^>
           echo ^</Project^>
-          ) >> Skyline.DataMiner.DOM.ResourceManagement/Skyline.DataMiner.DOM.ResourceManagement.csproj
+          ) > Skyline.DataMiner.DOM.ResourceManagement/Skyline.DataMiner.DOM.ResourceManagement.csproj
 
+      - name: Generate Code
+        shell: cmd
+        run: |
           "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" >> Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
-
           ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
 
       - name: Build Nuget Package
