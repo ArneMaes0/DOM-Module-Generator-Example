@@ -34,7 +34,7 @@ jobs:
         run: |
           dotnet restore "./generator/Tools.DOM.Code.Generator/Tools.DOM.Code.Generator.csproj"
           dotnet build "./generator/Tools.DOM.Code.Generator/Tools.DOM.Code.Generator.csproj"
-          dotnet nuget add source "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0"
+        # dotnet nuget add source "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0"
 
       - name: Logging
         run: |
