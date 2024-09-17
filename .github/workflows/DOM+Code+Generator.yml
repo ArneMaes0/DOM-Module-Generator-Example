@@ -42,7 +42,48 @@ jobs:
           Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Debug"
           Get-ChildItem -Path "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0"
 
-      - name: Run Code Generator
+      - name: Create Nuget Package
         shell: cmd
         run: |
-          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json"
+          dotnet new classlib -n Skyline.DataMiner.DOM.ResourceManagement
+          (
+          echo ^<Project Sdk="Microsoft.NET.Sdk"^>
+          echo  ^<PropertyGroup^>
+          echo    ^<TargetFramework^>net462^</TargetFramework^>
+          echo    ^<ImplicitUsings^>disable^</ImplicitUsings^>
+          echo    ^<Nullable^>disable^</Nullable^>
+          echo    ^<AssemblyName^>Skyline.DataMiner.DOM.ResourceManagement^</AssemblyName^>
+          echo    ^<RootNamespace^>Skyline.DataMiner.DOM.ResourceManagement^</RootNamespace^>
+          echo    ^<PackageVersion^>1.0.0-${{ github.run_number }}^</PackageVersion^>
+          echo    ^<Version^>1.0.0-${{ github.run_number }}^</Version^>
+          echo    ^<PackageTags^>Skyline;DataMiner^</PackageTags^>
+          echo    ^<PackageProjectUrl^>https://skyline.be^</PackageProjectUrl^>
+          echo    ^<GenerateDocumentationFile^>True^</GenerateDocumentationFile^>
+          echo    ^<GeneratePackageOnBuild^>True^</GeneratePackageOnBuild^>
+          echo    ^<Authors^>SkylineCommunications^</Authors^>
+          echo    ^<Company^>Skyline Communications^</Company^>
+          echo    ^<Description^>Contains helper classes to interact with the DOM instances.^</Description^>
+          echo    ^<RepositoryType^>git^</RepositoryType^>
+          echo  ^</PropertyGroup^>
+          echo 
+          echo  ^<ItemGroup^>
+          echo    ^<PackageReference Include="Skyline.DataMiner.Dev.Common" Version="10.3.9" /^>
+          echo  ^</ItemGroup^>
+          echo ^</Project^>
+          ) >> Skyline.DataMiner.DOM.ResourceManagement/Skyline.DataMiner.DOM.ResourceManagement.csproj
+
+          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" >> Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
+
+          ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
+
+      - name: Build Nuget Package
+        shell: cmd
+        run: |
+          dotnet build Skyline.DataMiner.DOM.ResourceManagement/Skyline.DataMiner.DOM.ResourceManagement.csproj
+
+      - name: Checkout Nuget Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: NugetPackages
+          path: "./Skyline.DataMiner.DOM.ResourceManagement/bin/Debug/Skyline.DataMiner.DOM.ResourceManagement.1.0.0-${{ github.run_number }}.nupkg"
+
