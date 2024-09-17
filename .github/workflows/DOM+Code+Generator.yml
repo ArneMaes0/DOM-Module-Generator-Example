@@ -95,6 +95,10 @@ jobs:
         run: |
           type Skyline.DataMiner.DOM.ResourceManagement\DomHelpers.cs
 
+      - name: Logging
+        run: |
+          Get-ChildItem -Path "./Skyline.DataMiner.DOM.ResourceManagement"
+
       - name: Build Nuget Package
         shell: cmd
         run: |
