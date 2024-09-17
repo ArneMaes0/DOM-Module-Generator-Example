@@ -78,7 +78,7 @@ jobs:
       - name: Generate Code
         shell: cmd
         run: |
-          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" >> Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
+          "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" > Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
           ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
 
       - name: Build Nuget Package
