@@ -79,6 +79,10 @@ jobs:
         shell: cmd
         run: |
           "./generator/Tools.DOM.Code.Generator/bin/Debug/net8.0/Skyline.DataMiner.Tools.DOM.Code.Generator.exe" --file "./src/module.json" > Skyline.DataMiner.DOM.ResourceManagement/Class1.cs
+
+      - name: Rename class
+        shell: cmd
+        run: |
           ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
 
       - name: Build Nuget Package
