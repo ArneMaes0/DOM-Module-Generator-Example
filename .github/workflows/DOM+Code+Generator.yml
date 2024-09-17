@@ -107,6 +107,6 @@ jobs:
       - name: Checkout Nuget Package
         uses: actions/upload-artifact@v4
         with:
-          name: NugetPackages
+          name: DOM_Helper_Nuget
           path: "./Skyline.DataMiner.DOM.ResourceManagement/bin/Debug/Skyline.DataMiner.DOM.ResourceManagement.1.0.0-${{ github.run_number }}.nupkg"
 
