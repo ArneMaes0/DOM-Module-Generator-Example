@@ -83,7 +83,7 @@ jobs:
       - name: Rename class
         shell: cmd
         run: |
-          ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs Skyline.DataMiner.DOM.ResourceManagement/DomHelpers.cs
+          ren Skyline.DataMiner.DOM.ResourceManagement/Class1.cs DomHelpers.cs
 
       - name: Build Nuget Package
         shell: cmd
