@@ -80,6 +80,11 @@ jobs:
           echo ^</Project^>
           ) > Skyline.DataMiner.DOM.ResourceManagement/Skyline.DataMiner.DOM.ResourceManagement.csproj
 
+      - name: Logging
+        shell: cmd
+        run: |
+          type Skyline.DataMiner.DOM.ResourceManagement\Skyline.DataMiner.DOM.ResourceManagement.csproj
+
       - name: Generate Code
         shell: cmd
         run: |
